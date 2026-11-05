@@ -30,9 +30,9 @@ export default function Contractors() {
         <div className="wrap hero-in contractor-hero">
           <div className="contractor-hero-copy">
             <p className="eyebrow">Contractor supply programme</p>
-            <h1>Stop losing money to delayed paint deliveries and patchy finishes.</h1>
-            <p className="lead">Factory-direct bulk pricing with no middlemen, delivery to most states in Nigeria, and 100% batch-to-batch colour consistency for your next site.</p>
-            <div className="row"><a className="btn gold" href="#quote">Get a custom bulk quote</a><a className="btn ghost" href={`tel:${SITE.phones[0]}`}>Call sales team</a></div>
+            <h1>Specify a finish that performs as beautifully as it looks.</h1>
+            <p className="lead">Build with confidence: factory-direct pricing, dependable delivery across Nigeria, and batch-to-batch colour consistency for every site.</p>
+            <div className="row"><a className="btn gold" href="#quote">Get a custom bulk quote</a><a className="btn ghost-dark" href={`tel:${SITE.phones[0]}`}>Call sales team</a></div>
           </div>
         </div>
       </section>

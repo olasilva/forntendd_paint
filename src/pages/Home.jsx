@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../api.js';
 import Bucket from '../components/Bucket.jsx';
-import { SITE } from '../config.js';
+import { productPhotos, SITE } from '../config.js';
 
 const fallback = [{ id: 'f', code: '1025', name: 'Cameo', hex: '#D2A375' }];
 const clients = ['RCCG', 'Obafemi Awolowo University', 'National Universities Commission', 'National Council for Arts and Culture', 'Bevis Homes', 'Ambrose Alli University'];
@@ -29,11 +29,11 @@ export default function Home() {
         <video ref={vref} className="vhero-video" src="/legend-paints-pour.mp4" poster="/legend-paints-poster.jpg" autoPlay loop muted playsInline preload="auto" aria-hidden="true" />
         <div className="vhero-shade" />
         <div className="wrap vhero-copy">
-          <h1>Give your home a finish that survives the Lagos rains.</h1>
-          <p className="lead">Premium anti-fungal paint formulated for Nigerian humidity, without the multinational markup. Order factory-direct to your door.</p>
+          <h1>Colour with confidence, through every Lagos season.</h1>
+          <p className="lead">Premium, anti-fungal paint engineered for Nigerian humidity. Beautiful finishes, dependable protection, and factory-direct value delivered to your door.</p>
           <div className="row">
             <Link className="btn gold" to="/products">Browse products</Link>
-            <Link className="btn ghost" to="/contractors#quote">Get a quote</Link>
+            <Link className="btn ghost-dark" to="/contractors#quote">Get a quote</Link>
           </div>
         </div>
       </section>
@@ -95,7 +95,7 @@ export default function Home() {
         <div className="grid">
           {products.slice(0, 6).map((p, i) => (
             <Link key={p.id} to={`/products?category=${p.category}`} className="pcard">
-              <Bucket src={p.image} label={p.name} color={swatches[(i * 3) % swatches.length]?.hex} />
+              <Bucket src={p.image || productPhotos[i % productPhotos.length].src} label={p.name} color={swatches[(i * 3) % swatches.length]?.hex} />
               <small>{p.tag}</small>
               <h3>{p.name}</h3>
             </Link>
