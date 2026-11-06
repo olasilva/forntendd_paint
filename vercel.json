@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://paintbackend.vercel.app/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://paintbackend.vercel.app/uploads/:path*" }
+  ]
+}

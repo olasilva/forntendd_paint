@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const base = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? null : 'https://paintbackend.vercel.app');
+const base = import.meta.env.VITE_API_URL || '';
 export const token = {
   get: () => localStorage.getItem('lp_token'),
   set: (t) => localStorage.setItem('lp_token', t),
@@ -9,7 +9,6 @@ export const token = {
 export const img = (u) => (u && u.startsWith('/uploads') && base ? base + u : u);
 
 async function req(path, { method = 'GET', body, form } = {}) {
-  if (!base) throw new Error('The local API is not configured. Set VITE_API_URL to connect to the backend.');
   const headers = {};
   if (token.get()) headers.Authorization = `Bearer ${token.get()}`;
   if (body) headers['Content-Type'] = 'application/json';
@@ -32,10 +31,6 @@ export function useData(path, initial = []) {
   const [error, setError] = useState('');
   useEffect(() => {
     let live = true;
-    if (!base) {
-      setLoading(false);
-      return () => { live = false; };
-    }
     setLoading(true);
     setError('');
     api.get(path).then((d) => live && setData(d)).catch((e) => live && setError(e.message)).finally(() => live && setLoading(false));
