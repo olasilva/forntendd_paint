@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const base = import.meta.env.VITE_API_URL || '';
+const publicDataEnabled = import.meta.env.VITE_ENABLE_REMOTE_DATA === 'true';
 export const token = {
   get: () => localStorage.getItem('lp_token'),
   set: (t) => localStorage.setItem('lp_token', t),
@@ -31,6 +32,10 @@ export function useData(path, initial = []) {
   const [error, setError] = useState('');
   useEffect(() => {
     let live = true;
+    if (!publicDataEnabled) {
+      setLoading(false);
+      return () => { live = false; };
+    }
     setLoading(true);
     setError('');
     api.get(path).then((d) => live && setData(d)).catch((e) => live && setError(e.message)).finally(() => live && setLoading(false));
