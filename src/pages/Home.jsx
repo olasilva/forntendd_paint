@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../api.js';
 import Bucket from '../components/Bucket.jsx';
-import { productPhotos, SITE } from '../config.js';
+import { fallbackProducts, productPhotos, SITE } from '../config.js';
 
 const fallback = [{ id: 'f', code: '1025', name: 'Cameo', hex: '#D2A375' }];
 const clients = ['RCCG', 'Obafemi Awolowo University', 'National Universities Commission', 'National Council for Arts and Culture', 'Bevis Homes', 'Ambrose Alli University'];
 
 export default function Home() {
   const { data: colors } = useData('/colors', fallback);
-  const { data: products } = useData('/products');
+  const { data: products } = useData('/products', fallbackProducts);
   const picks = colors.filter((c) => ['1025', '1002', '1011', '1018', '1014', '1032', '1039', '1030'].includes(c.code));
   const swatches = picks.length ? picks : colors.slice(0, 8);
   const [sel, setSel] = useState(null);
@@ -38,7 +38,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="hero">
+      <section className="hero" data-reveal>
         <div className="wrap hero-in">
           <div className="hero-copy">
             <h2>See the colour before you buy the bucket.</h2>
@@ -66,7 +66,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="band">
+      <section className="band" data-reveal>
         <div className="wrap split">
           <div>
             <h2>Stop losing money to delayed paint deliveries.</h2>
@@ -84,12 +84,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="wrap section">
+      <section className="wrap section" data-reveal>
         <p className="muted center">Trusted by Nigeria&rsquo;s leading institutions and companies</p>
         <ul className="clients">{clients.map((c) => <li key={c}>{c}</li>)}</ul>
       </section>
 
-      <section className="wrap section">
+      <section className="wrap section" data-reveal>
         <h2>One factory. Every finish your project needs.</h2>
         <p className="muted lead-sm">From flagship emulsions to marble-grit exteriors, all mixed in Lagos and covered by the same batch-consistency guarantee.</p>
         <div className="grid">
@@ -104,7 +104,7 @@ export default function Home() {
         <p><Link className="btn dark" to="/products">See all products</Link></p>
       </section>
 
-      <section className="cameo">
+      <section className="cameo" data-reveal>
         <div className="wrap split">
           <div>
             <small>2026 Colour of the Year</small>

@@ -12,6 +12,19 @@ export default function Layout() {
     if (hash) setTimeout(() => document.querySelector(hash)?.scrollIntoView(), 50);
     else window.scrollTo(0, 0);
   }, [pathname, hash]);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const reveal = (root = document) => root.querySelectorAll('[data-reveal]:not(.is-visible)').forEach((el) => observer.observe(el));
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }), { threshold: 0.12 });
+    reveal();
+    const mutations = new MutationObserver(() => reveal());
+    mutations.observe(document.body, { childList: true, subtree: true });
+    return () => { observer.disconnect(); mutations.disconnect(); };
+  }, [pathname]);
 
   return (
     <>

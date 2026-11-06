@@ -36,7 +36,7 @@ export default function Contractors() {
           </div>
         </div>
       </section>
-      <section className="wrap section">
+      <section className="wrap section" data-reveal>
         <p className="eyebrow dark-eyebrow">Why contractors choose Legend</p>
         <h2>Built factory-direct, scaled for margins</h2>
         <div className="perks">{perks.map(([t, d], i) => <div key={t}><span className="perk-number">0{i + 1}</span><h3>{t}</h3><p>{d}</p></div>)}</div>
@@ -46,7 +46,7 @@ export default function Contractors() {
           <cite>Tunde, Site Manager, Lekki</cite>
         </blockquote>
       </section>
-      <section className="wrap section split" id="quote">
+      <section className="wrap section split" id="quote" data-reveal>
         <div>
           <p className="eyebrow dark-eyebrow">Consistency you can build on</p>
           <h2>The &ldquo;exact match&rdquo; colour guarantee</h2>

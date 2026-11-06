@@ -38,7 +38,7 @@ export default function Colors() {
       <p className="lead-sm muted">Explore the Legend palette and see how each colour feels in a finished space.</p>
       {loading && <p>Loading colours…</p>}
       {pick.main && (
-        <div className="studio">
+        <div className="studio" data-reveal>
           <div>
             <Room />
             <div className="tabs">

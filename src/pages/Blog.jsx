@@ -1,12 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
 import { useData } from '../api.js';
+import { fallbackPosts } from '../config.js';
 
 const date = (d) => new Date(d).toLocaleDateString('en-NG', { day: 'numeric', month: 'long', year: 'numeric' });
 
 export function Blog() {
-  const { data, loading, error } = useData('/posts');
+  const { data, loading, error } = useData('/posts', fallbackPosts);
   return (
-    <div className="wrap page narrow">
+    <div className="wrap page narrow" data-reveal>
       <h1>Blog</h1>
       <p className="lead-sm muted">Practical advice on painting for Nigerian homes and sites.</p>
       {loading && <p>Loading…</p>}
@@ -25,11 +26,12 @@ export function Blog() {
 
 export function BlogPost() {
   const { slug } = useParams();
-  const { data: p, loading, error } = useData(`/posts/${slug}`, null);
+  const fallbackPost = fallbackPosts.find((post) => post.slug === slug) || null;
+  const { data: p, loading, error } = useData(`/posts/${slug}`, fallbackPost);
   if (loading) return <div className="wrap page"><p>Loading…</p></div>;
   if (error || !p) return <div className="wrap page"><h1>Post not found</h1><Link to="/blog">Back to the blog</Link></div>;
   return (
-    <article className="wrap page narrow prose">
+    <article className="wrap page narrow prose" data-reveal>
       <small>{date(p.createdAt)}</small>
       <h1>{p.title}</h1>
       {p.body.split(/\n{2,}/).map((para, i) => <p key={i}>{para}</p>)}
