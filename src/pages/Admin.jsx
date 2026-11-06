@@ -60,7 +60,7 @@ function Crud({ name }) {
   const [items, setItems] = useState([]);
   const [edit, setEdit] = useState(null);
   const [err, setErr] = useState('');
-  const load = () => api.get(`/${name}`).then(setItems).catch((e) => setErr(e.message));
+  const load = () => api.get(`/${name}`).then((next) => { setItems(next); setErr(''); }).catch((e) => setErr(e.message));
   useEffect(() => { setEdit(null); load(); }, [name]); // eslint-disable-line
 
   async function save(e) {
@@ -72,7 +72,8 @@ function Crud({ name }) {
   }
   async function remove(it) {
     if (!confirm(`Delete "${it.name || it.title}"? This cannot be undone.`)) return;
-    await api.del(`/${name}/${it.id}`); load();
+    setErr('');
+    try { await api.del(`/${name}/${it.id}`); load(); } catch (x) { setErr(x.message); }
   }
 
   if (edit) {
@@ -88,7 +89,7 @@ function Crud({ name }) {
   return (
     <div>
       <div className="row between"><h2>{cfg.label} ({items.length})</h2><button className="btn dark" onClick={() => setEdit({ ...cfg.blank })}>Add new</button></div>
-      {err && <p className="err">{err}</p>}
+      {err && <p className="err" role="alert">{err}</p>}
       <div className="scroll"><table>
         <thead><tr>{cfg.cols.map((c) => <th key={c}>{c}</th>)}<th /></tr></thead>
         <tbody>{items.map((it) => (
@@ -105,12 +106,21 @@ function Crud({ name }) {
 function Quotes() {
   const [items, setItems] = useState([]);
   const [err, setErr] = useState('');
-  const load = () => api.get('/admin/quotes').then(setItems).catch((e) => setErr(e.message));
+  const load = () => api.get('/admin/quotes').then((next) => { setItems(next); setErr(''); }).catch((e) => setErr(e.message));
   useEffect(() => { load(); }, []);
+  async function updateStatus(id, status) {
+    setErr('');
+    try { await api.put(`/admin/quotes/${id}`, { status }); load(); } catch (x) { setErr(x.message); }
+  }
+  async function remove(id) {
+    if (!confirm('Delete this request?')) return;
+    setErr('');
+    try { await api.del(`/admin/quotes/${id}`); load(); } catch (x) { setErr(x.message); }
+  }
   return (
     <div>
       <h2>Quote requests ({items.length})</h2>
-      {err && <p className="err">{err}</p>}
+      {err && <p className="err" role="alert">{err}</p>}
       {!items.length && <p className="muted">No quote requests yet. Requests from the contractor page appear here.</p>}
       {items.map((q) => (
         <article key={q.id} className="qcard">
@@ -121,10 +131,10 @@ function Quotes() {
           <p>{q.details}</p>
           <p className="muted"><a href={`tel:${q.phone}`}>{q.phone}</a>{q.email && <> · <a href={`mailto:${q.email}`}>{q.email}</a></>}</p>
           <div className="row">
-            <select value={q.status} onChange={async (e) => { await api.put(`/admin/quotes/${q.id}`, { status: e.target.value }); load(); }}>
+            <select value={q.status} onChange={(e) => updateStatus(q.id, e.target.value)}>
               {['new', 'contacted', 'won', 'closed'].map((s) => <option key={s}>{s}</option>)}
             </select>
-            <button className="link danger" onClick={async () => { if (confirm('Delete this request?')) { await api.del(`/admin/quotes/${q.id}`); load(); } }}>Delete</button>
+            <button className="link danger" onClick={() => remove(q.id)}>Delete</button>
           </div>
         </article>
       ))}
@@ -142,7 +152,10 @@ function Login({ onDone }) {
   return (
     <div className="login">
       <form className="form" onSubmit={go}>
+        <div className="admin-brand"><span className="logo-dot" /><span>Legend Paints</span></div>
+        <p className="eyebrow">Admin portal</p>
         <h1>Staff sign in</h1>
+        <p className="muted">Manage products, colours, blog posts and incoming quote requests.</p>
         <label>Email<input type="email" required autoComplete="username" value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} /></label>
         <label>Password<input type="password" required autoComplete="current-password" value={f.password} onChange={(e) => setF({ ...f, password: e.target.value })} /></label>
         {err && <p className="err" role="alert">{err}</p>}
@@ -163,7 +176,9 @@ export default function Admin() {
     <div className="admin">
       <aside>
         <div className="logo"><span className="logo-dot" />Legend Admin</div>
+        <p className="admin-nav-label">Workspace</p>
         {tabs.map(([k, l]) => <button key={k} className={tab === k ? 'side on' : 'side'} onClick={() => setTab(k)}>{l}</button>)}
+        <div className="admin-nav-spacer" />
         <Link className="side" to="/">View site</Link>
         <button className="side" onClick={() => { token.clear(); setAuthed(false); }}>Sign out</button>
       </aside>

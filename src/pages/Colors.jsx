@@ -3,24 +3,30 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useData } from '../api.js';
 import { wa } from '../config.js';
 
+const fallbackColors = [
+  { id: 'fallback-cameo', code: '1025', name: 'Cameo', hex: '#D2A375', family: 'Yellows & Earth', product: 'Emulsion', finish: 'Matt' },
+  { id: 'fallback-accent', code: '1016', name: 'Deep Green', hex: '#385548', family: 'Greens', product: 'Emulsion', finish: 'Matt' },
+];
+
 function Room() {
   return <img className="room" src="/house.png" alt="Bright interior with painted green walls and built-in seating" />;
 }
 
 export default function Colors() {
-  const { data: colors, loading } = useData('/colors');
+  const { data: colors, loading } = useData('/colors', fallbackColors);
   const [params] = useSearchParams();
   const [surface, setSurface] = useState('main');
   const [family, setFamily] = useState('All');
   const [pick, setPick] = useState({ main: null, accent: null });
+  const wallCode = params.get('wall');
   const families = useMemo(() => ['All', ...new Set(colors.map((c) => c.family).filter(Boolean))], [colors]);
 
   useEffect(() => {
     if (!colors.length) return;
-    const first = colors.find((c) => c.code === params.get('wall')) || colors.find((c) => c.code === '1025') || colors[0];
+    const first = colors.find((c) => c.code === wallCode) || colors.find((c) => c.code === '1025') || colors[0];
     const accent = colors.find((c) => c.code === '1016') || colors[0];
-    setPick((p) => ({ main: p.main || first, accent: p.accent || accent }));
-  }, [colors]); // eslint-disable-line
+    setPick((p) => ({ main: wallCode ? first : (p.main || first), accent: p.accent || accent }));
+  }, [colors, wallCode]);
 
   const cur = pick[surface];
   const list = family === 'All' ? colors : colors.filter((c) => c.family === family);

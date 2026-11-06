@@ -4,12 +4,13 @@ import { useData } from '../api.js';
 const date = (d) => new Date(d).toLocaleDateString('en-NG', { day: 'numeric', month: 'long', year: 'numeric' });
 
 export function Blog() {
-  const { data, loading } = useData('/posts');
+  const { data, loading, error } = useData('/posts');
   return (
     <div className="wrap page narrow">
       <h1>Blog</h1>
       <p className="lead-sm muted">Practical advice on painting for Nigerian homes and sites.</p>
       {loading && <p>Loading…</p>}
+      {error && <p className="err" role="alert">Could not load posts: {error}</p>}
       {!loading && !data.length && <p>No posts yet.</p>}
       {data.map((p) => (
         <article key={p.id} className="post-row">

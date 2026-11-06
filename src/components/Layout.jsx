@@ -47,7 +47,7 @@ export default function Layout() {
             <a href={SITE.facebook} target="_blank" rel="noreferrer">Facebook</a>
           </div>
         </div>
-        <div className="wrap foot-base">© {new Date().getFullYear()} Legend Paints · Gerolyn Chemical &amp; Allied Products Ltd. <Link to="/admin">Staff login</Link></div>
+        <div className="wrap foot-base">© {new Date().getFullYear()} Legend Paints · Gerolyn Chemical &amp; Allied Products Ltd.</div>
       </footer>
     </>
   );
