@@ -17,7 +17,7 @@ small{color:var(--muted);font-size:.85rem}.muted{color:var(--muted)}.center{text
 .bar{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff}
 .bar-in{display:flex;align-items:center;justify-content:space-between;min-height:68px}
 .logo{display:flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.25rem;margin:0;text-decoration:none}
-.logo-dot{width:18px;height:18px;border-radius:50% 50% 50% 4px;background:var(--gold);display:inline-block}
+.logo-mark{width:34px;height:34px;object-fit:contain;background:#fff;border-radius:4px;flex:none}
 .nav{display:flex;align-items:center;gap:1.6rem}.nav a{text-decoration:none;font-weight:500;opacity:.85}.nav a.active,.nav a:hover{opacity:1}.nav .btn{opacity:1;padding:.55rem 1.1rem}
 .menu-btn{display:none;background:none;border:1px solid #ffffff55;color:#fff;border-radius:8px;padding:.4rem .9rem;font:inherit}
 /* hero */
@@ -82,7 +82,7 @@ input,select,textarea{font:inherit;padding:.65rem .8rem;border:1px solid #c5cdd6
 @keyframes content-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}[data-reveal].is-visible{opacity:1;transform:none}
 /* admin */
-.login{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 15% 10%,#26304f 0,#18191d 42%),var(--paper);padding:1.5rem}.login .form{width:min(440px,100%);background:#1b1c20;border:1px solid #343741;border-radius:14px;padding:clamp(1.5rem,4vw,2.5rem);box-shadow:0 24px 70px #0008}.login h1{margin-bottom:.65rem}.login .muted{margin-bottom:1.8rem}.admin-brand{display:flex;align-items:center;gap:.6rem;font:700 1.15rem 'Bricolage Grotesque';margin-bottom:2.5rem}.admin-nav-label{text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:#70727b;margin:0 0 .45rem .8rem}.admin-nav-spacer{flex:1}
+.login{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 15% 10%,#26304f 0,#18191d 42%),var(--paper);padding:1.5rem}.login .form{width:min(440px,100%);background:#1b1c20;border:1px solid #343741;border-radius:14px;padding:clamp(1.5rem,4vw,2.5rem);box-shadow:0 24px 70px #0008}.login h1{margin-bottom:.65rem}.login .muted{margin-bottom:1.8rem}.admin-brand{display:flex;align-items:center;gap:.6rem;font:700 1.15rem 'Bricolage Grotesque';margin-bottom:2.5rem}.admin-brand .logo-mark{width:40px;height:40px}.admin-nav-label{text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:#70727b;margin:0 0 .45rem .8rem}.admin-nav-spacer{flex:1}
 .admin{display:grid;grid-template-columns:250px 1fr;min-height:100vh;background:#18191d}.admin aside{background:#101114;color:#fff;padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.3rem;border-right:1px solid #2a2c31}.admin aside .logo{margin:0 0 2rem .8rem}
 .side{background:none;border:0;color:#c3cedb;text-align:left;padding:.65rem .8rem;border-radius:8px;font:inherit;cursor:pointer;text-decoration:none}.side.on,.side:hover{background:#ffffff1a;color:#fff}
 .admin>section{padding:clamp(1.25rem,4vw,3rem);background:#18191d;overflow:auto}.admin>section>div{max-width:1080px;margin:0 auto}.admin-form{max-width:720px;background:#1b1c20}
@@ -117,7 +117,6 @@ h1,h2,h3,.logo{letter-spacing:.01em}
 a{color:var(--ink)}
 small,.muted,.fine{color:#8f9097}
 .bar{background:#101114;border-bottom:1px solid #2a2c31}
-.logo-dot{background:var(--gold);border-radius:1px;width:16px;height:16px}
 .nav a{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#d9d8d3}
 .nav a.active,.nav a:hover{color:#fff}
 .btn{border-radius:2px;text-transform:uppercase;font-size:.75rem;letter-spacing:.08em}
@@ -193,7 +192,6 @@ th{color:#92939a}
 
 .vhero,.hero{background:linear-gradient(120deg,#101114 0%,#151b3d 45%,#101114 72%,#2a1b13 100%);background-size:240% 240%;animation:spectrum-drift 16s ease-in-out infinite}
 .vhero-shade{background:linear-gradient(115deg,#101114f5 0%,#101114d9 48%,#10111499 100%);background-size:180% 180%;animation:spectrum-drift 13s ease-in-out infinite reverse}
-.logo-dot{animation:glow-pulse 3.5s ease-in-out infinite}
 .wall-card{position:relative;overflow:hidden;box-shadow:0 18px 55px #0008}
 .wall-card::after,.product-gallery-card::after,.pcard::after{content:'';position:absolute;inset:-40% 40% -40% -80%;background:linear-gradient(90deg,transparent,#ffffff33,transparent);transform:rotate(18deg);pointer-events:none}
 .wall-card::after{animation:paint-shimmer 7s ease-in-out infinite}
@@ -218,4 +216,4 @@ th{color:#92939a}
 .sw span{transition:filter .3s ease,transform .3s ease}.sw:hover span{filter:saturate(1.35);transform:scale(.97)}
 .stats div{transition:transform .3s ease,border-color .3s ease}.stats div:hover{transform:translateX(8px);border-color:var(--blue)}
 .perks div{transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}.perks div:hover{border-color:var(--gold)}
-@media(prefers-reduced-motion:reduce){.vhero,.hero,.vhero-shade,.logo-dot,.wall,.wall-card::after,.wall-light,.chip,.cameo,.cameo-swatch::before{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.vhero,.hero,.vhero-shade,.wall,.wall-card::after,.wall-light,.chip,.cameo,.cameo-swatch::before{animation:none!important}}

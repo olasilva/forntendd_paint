@@ -152,7 +152,7 @@ function Login({ onDone }) {
   return (
     <div className="login">
       <form className="form" onSubmit={go}>
-        <div className="admin-brand"><span className="logo-dot" /><span>Legend Paints</span></div>
+        <div className="admin-brand"><img className="logo-mark" src="/legend2.jpg" alt="" /><span>Legend Paints</span></div>
         <p className="eyebrow">Admin portal</p>
         <h1>Staff sign in</h1>
         <p className="muted">Manage products, colours, blog posts and incoming quote requests.</p>
@@ -175,7 +175,7 @@ export default function Admin() {
   return (
     <div className="admin">
       <aside>
-        <div className="logo"><span className="logo-dot" />Legend Admin</div>
+        <div className="logo"><img className="logo-mark" src="/legend2.jpg" alt="" />Legend Admin</div>
         <p className="admin-nav-label">Workspace</p>
         {tabs.map(([k, l]) => <button key={k} className={tab === k ? 'side on' : 'side'} onClick={() => setTab(k)}>{l}</button>)}
         <div className="admin-nav-spacer" />

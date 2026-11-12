@@ -31,7 +31,7 @@ export default function Layout() {
       <a className="skip" href="#main">Skip to main content</a>
       <header className="bar">
         <div className="wrap bar-in">
-          <Link to="/" className="logo" aria-label="Legend Paints home"><span className="logo-dot" />Legend Paints</Link>
+          <Link to="/" className="logo" aria-label="Legend Paints home"><img className="logo-mark" src="/legend2.jpg" alt="" />Legend Paints</Link>
           <button className="menu-btn" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}</button>
           <nav className={open ? 'nav open' : 'nav'}>
             {nav.map(([to, label]) => <NavLink key={to} to={to}>{label}</NavLink>)}
@@ -43,7 +43,7 @@ export default function Layout() {
       <footer className="foot">
         <div className="wrap foot-in">
           <div>
-            <div className="logo"><span className="logo-dot" />Legend Paints</div>
+            <div className="logo"><img className="logo-mark" src="/legend2.jpg" alt="" />Legend Paints</div>
             <p>Premium, weather-resistant paints manufactured in Lagos. A subsidiary of Gerolyn Chemical &amp; Allied Products Ltd. Made in Lagos since 2003.</p>
           </div>
           <div>
